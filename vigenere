@@ -1,0 +1,111 @@
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+    
+int main(int argc, string argv[])
+{
+    if (argc != 2)
+    {
+        printf("Usage: ./vigenere k\n");
+        return 1;
+    }
+    
+    if(argc == 2)
+    {
+        //check if argv[1] (key word) is alphabetical
+        for (int k = 0, m = strlen(argv[1]); k < m; k++)
+        {
+            if(!isalpha(argv[1][k]))
+            {
+                printf("Usage: ./vigenere k\n");
+                return 1;
+            }
+            
+            if(isalpha(argv[1][k]))
+            {
+                //ask user to input plaintext
+             
+                printf("plaintext: ");
+                string plaintext = get_string();
+                printf("ciphertext: ");
+                
+                //iterate over plaintext
+                for(int j = 0, n = strlen(plaintext); j < n; j++)
+                {
+                    int pos = k%m;
+                    argv[1][pos] = tolower(argv[1][pos]);
+                    
+                    if(isalpha(plaintext[j]))
+                    {
+                        k++;
+                        
+                        //upper
+                        if (isupper(plaintext[j]))
+                        {
+                            printf("%c", (((plaintext[j] - 65 + argv[1][pos] - 97)%26) + 65));
+                        }
+                        
+                        //lower
+                        if (islower(plaintext[j])) 
+                        {
+                            printf("%c", (((plaintext[j] - 97 + argv[1][pos] - 97)%26) + 97));
+                        }
+                    }
+                        
+                    //rest of chars
+                    else
+                    {
+                        printf("%c", plaintext[j]);
+                    }
+                }
+                printf("\n");
+                return 0;
+            }
+        }
+    }
+}
+
+//why k++ two times, checck iteration for loops which level ?
+
+/* int main(int argc, string argv[])
+{
+    //check if there are 2 command line argument
+    // valid input - 
+    // 1 argc = 2,
+    // 2 argv[1] no invalid character
+    if (argc != 2)
+    {
+        return 1;
+    }
+    
+    string key = argv[1];
+    int keyLen = strlen(key);
+    for (i = 0; i < keyLen; i++)
+    {
+        if (!isalpha(key[i]))
+        {
+            return 1;
+        }
+    }
+    
+    // get input
+    printf("plaintext: ");
+    string plaintext = get_string();
+    printf("ciphertext: ");
+    
+    int validCharPosition = 0;
+    for (int j = 0; j < strlen(plaintext); j++)
+    {
+        if (isalpha(plaintext[j]))
+        {
+            validCharPosition++;
+        }
+        
+        char keyChar = key[validCharPosition % keyLen];
+        if (isupper(keyChar))
+        {
+            plaintext[counter] = (plaintext[counter] + key ) % 26 ;
+        }
+        keyChar = keyChar + plaintext[j];
+    } */
