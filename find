@@ -1,0 +1,78 @@
+/**
+ * helpers.c
+ *
+ * Helper functions for Problem Set 3.
+ */
+ 
+#include <cs50.h>
+#include <stdio.h>
+#include "helpers.h"
+
+/**
+ * Returns true if value is in array of n values, else false.
+ */
+bool search(int value, int values[], int n)
+{
+    // TODO: implement a searching algorithm
+    if (n <= 0)
+    {
+        return false;
+    }
+    if(n > 0)
+    {
+        printf("%i\n", n);
+        int start = 0;
+        int end = n-1;
+        int middle = start + (end - start)/2;
+        
+        int counter = 0;
+        while(start <= end && counter < 20)
+        {
+            printf("start = %i, end = %i, middle = %i", start, end, middle);
+            printf("\n");
+            if (values[middle] == value)
+            {
+                return true;
+            }
+            else if (values[middle] > value)
+            {
+                end = middle - 1;
+                middle = start + (end - start)/2;
+            }
+            else if (values[middle] < value)
+            {
+                start = middle + 1;
+                middle = start + (end - start)/2;
+            }
+            counter ++;
+        }
+        return false;
+    }
+
+    return false;
+}
+
+
+/**
+ * Sorts array of n values.
+ */
+void sort(int values[], int n)
+{
+    // TODO: implement a sorting algorithm
+    int unsortedlist = n;
+    while(unsortedlist > 0)
+    {
+        for (int j = 0; j < unsortedlist - 1; j++)
+        {
+            if (values[j] > values[j + 1])
+            {
+                int temp = values[j];
+                values[j] = values[j+1];
+                values[j + 1] = temp;
+                
+                // printf("value 1 = values[%i] and value 2 = values[%i]\n", values[j], values[j+1]);
+            }
+        } 
+        unsortedlist--;
+    }
+    return;
